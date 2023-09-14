@@ -106,15 +106,15 @@ public class MyHashTable<K,V> {
     }
 
     private void addEntry(int hash, K key, V value, int index) {
-        Entry<?,?> tab[] = table;
-//        if (count >= threshold) {
-//            // Rehash the table if the threshold is exceeded
-//            rehash();
-//
-//            tab = table;
-//            hash = key.hashCode();
-//            index = (hash & 0x7FFFFFFF) % tab.length;
-//        }
+        Entry<?,?>[] tab = table;
+        if (size >= threshold) {
+            // Rehash the table if the threshold is exceeded
+            rehash();
+
+            tab = table;
+            hash = key.hashCode();
+            index = (hash & 0x7FFFFFFF) % tab.length;
+        }
 
         // Creates the new entry.
         @SuppressWarnings("unchecked")
@@ -123,7 +123,68 @@ public class MyHashTable<K,V> {
         size++;
     }
 
+    public V get(Object key) {
+        Entry<?,?>[] tab = table;
+        int hash = key.hashCode();
+        int index = (hash & 0x7FFFFFFF) % tab.length;
+        for (Entry<?,?> e = tab[index]; e != null ; e = e.next) {
+            if ((e.hash == hash) && e.key.equals(key)) {
+                return (V) e.value;
+            }
+        }
+        return null;
+    }
 
+    public V remove(Object key) {
+        Entry<?,?>[] tab = table;
+        int hash = key.hashCode();
+        int index = (hash & 0x7FFFFFFF) % tab.length;
+        @SuppressWarnings("unchecked")
+        Entry<K,V> e = (Entry<K,V>)tab[index];
+        for(Entry<K,V> prev = null; e != null ; prev = e, e = e.next) {
+            if ((e.hash == hash) && e.key.equals(key)) {
+                if (prev != null) {
+                    prev.next = e.next;
+                } else {
+                    tab[index] = e.next;
+                }
+                size--;
+                V oldValue = e.value;
+                e.value = null;
+                return oldValue;
+            }
+        }
+        return null;
+    }
 
+    protected void rehash() {
+        int oldCapacity = table.length;
+        Entry<?,?>[] oldMap = table;
+
+        // overflow-conscious code
+        int newCapacity = (oldCapacity << 1) + 1;
+        Entry<?,?>[] newMap = new Entry<?,?>[newCapacity];
+
+        threshold = (int) (newCapacity * loadFactor);
+        table = newMap;
+
+        for (int i = oldCapacity ; i-- > 0 ;) {
+            for (Entry<K,V> old = (Entry<K,V>) oldMap[i]; old != null ; ) {
+                Entry<K,V> e = old;
+                old = old.next;
+
+                int index = (e.hash & 0x7FFFFFFF) % newCapacity;
+                e.next = (Entry<K,V>) newMap[index];
+                newMap[index] = e;
+            }
+        }
+    }
+
+    public void clear() {
+        Entry<?,?> tab[] = table;
+        for (int index = tab.length; --index >= 0; )
+            tab[index] = null;
+        size = 0;
+    }
 
 }
