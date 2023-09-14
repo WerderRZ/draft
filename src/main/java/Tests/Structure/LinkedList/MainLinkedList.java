@@ -3,7 +3,7 @@ package Tests.Structure.LinkedList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Main {
+public class MainLinkedList {
     public static void main(String[] args) {
         testDefault();
         testSinglyLinkedList();

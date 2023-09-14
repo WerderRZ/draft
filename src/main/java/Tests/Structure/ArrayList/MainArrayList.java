@@ -1,6 +1,6 @@
 package Tests.Structure.ArrayList;
 
-public class Main {
+public class MainArrayList {
 
     public static void main(String[] args) {
 
@@ -17,7 +17,7 @@ public class Main {
         myArrayList.add(13);
         System.out.println(myArrayList.size());
 
-        myArrayList.add(8);
+        myArrayList.add(15);
         System.out.println(myArrayList.size());
 
         int element11 = myArrayList.get(10);

@@ -31,12 +31,13 @@ public class MyLinkedList<E> implements MyList<E> {
         Entry<E> lastElement = last;
         Entry<E> newNode = new Entry<>(lastElement, e, null);
         last = newNode;
-        if (lastElement == null)
+        if (lastElement == null) {
             first = newNode;
-        else
+        } else {
             lastElement.next = newNode;
+        }
         size++;
 
-         return true;
+        return true;
     }
 }
