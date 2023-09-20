@@ -22,7 +22,7 @@ public class MySimpleStack<T> implements MyStack<T> {
     @Override
     public T pop() {
         if (last == null) {
-            throw new NullPointerException("Stack is empty");
+            throw new IllegalStateException("Stack is empty");
         }
 
         Node<T> prevNode = last.prev;

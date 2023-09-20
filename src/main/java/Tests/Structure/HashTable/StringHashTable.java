@@ -30,12 +30,6 @@ public class StringHashTable<V> {
             return value;
         }
 
-        public V setValue(V value) {
-            V oldValue = this.value;
-            this.value = value;
-            return oldValue;
-        }
-
         public boolean equals(Object o) {
             if (!(o instanceof Entry<?> e))
                 return false;

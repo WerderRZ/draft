@@ -38,7 +38,7 @@ public class MySimpleQueue<T> implements MyQueue<T> {
     @Override
     public T remove() {
         if (first == null) {
-            throw new NullPointerException("Queue is empty");
+            throw new IllegalStateException("Queue is empty");
         }
 
         Node<T> nextNode = first.next;

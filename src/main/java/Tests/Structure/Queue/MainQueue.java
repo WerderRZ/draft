@@ -1,5 +1,7 @@
 package Tests.Structure.Queue;
 
+import java.util.PriorityQueue;
+
 public class MainQueue {
     public static void main(String[] args) {
         MySimpleQueue<Integer> mySimpleQueue = new MySimpleQueue<>();
@@ -26,6 +28,7 @@ public class MainQueue {
 
         mySimpleQueue.remove();
 //        //mySimpleQueue.remove(); //throw
+
 
     }
 }

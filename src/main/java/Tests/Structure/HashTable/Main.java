@@ -1,5 +1,6 @@
 package Tests.Structure.HashTable;
 
+import java.util.HashMap;
 import java.util.Hashtable;
 
 public class Main {
